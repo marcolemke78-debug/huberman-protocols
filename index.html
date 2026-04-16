@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Huberman Lab Protocols 2025–2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+  --bg: #0a0e1a;
+  --bg-card: rgba(255,255,255,0.04);
+  --bg-card-hover: rgba(255,255,255,0.08);
+  --text: #e8eaf0;
+  --text-dim: #8892a4;
+  --amber: #f59e0b;
+  --cyan: #06b6d4;
+  --green: #10b981;
+  --purple: #a855f7;
+  --orange: #f97316;
+  --pink: #ec4899;
+  --red: #ef4444;
+  --transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; }
+h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
+
+/* ── Progress Bar ── */
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px; z-index: 1000;
+  background: linear-gradient(90deg, var(--amber), var(--cyan), var(--green), var(--purple), var(--orange), var(--pink));
+  transition: width 0.4s ease;
+}
+
+/* ── Navigation Dots ── */
+#nav-dots {
+  position: fixed; right: 24px; top: 50%; transform: translateY(-50%); z-index: 900;
+  display: flex; flex-direction: column; gap: 6px; align-items: center;
+}
+.nav-dot {
+  width: 10px; height: 10px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.3);
+  background: transparent; cursor: pointer; transition: all 0.3s ease;
+}
+.nav-dot.active { background: var(--amber); border-color: var(--amber); transform: scale(1.3); }
+.nav-dot:hover { border-color: rgba(255,255,255,0.7); transform: scale(1.2); }
+.nav-section-label {
+  font-size: 9px; color: var(--text-dim); writing-mode: vertical-rl; text-orientation: mixed;
+  letter-spacing: 1px; text-transform: uppercase; margin: 4px 0;
+}
+
+/* ── Slide Counter ── */
+#slide-counter {
+  position: fixed; bottom: 24px; right: 28px; z-index: 900;
+  font-family: 'Outfit', sans-serif; font-size: 13px; color: var(--text-dim);
+  letter-spacing: 1px;
+}
+
+/* ── Arrow Buttons ── */
+.nav-arrow {
+  position: fixed; top: 50%; z-index: 900; transform: translateY(-50%);
+  width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.05); color: var(--text-dim); font-size: 20px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s ease; backdrop-filter: blur(8px);
+}
+.nav-arrow:hover { background: rgba(255,255,255,0.12); color: #fff; border-color: rgba(255,255,255,0.3); }
+#arrow-left { left: 20px; }
+#arrow-right { right: 60px; }
+
+/* ── Overview Toggle ── */
+#overview-btn {
+  position: fixed; bottom: 24px; left: 28px; z-index: 900;
+  width: 36px; height: 36px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.05); color: var(--text-dim); font-size: 16px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s ease;
+}
+#overview-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+
+/* ── Slides Container ── */
+#slides-container {
+  width: 100vw; height: 100vh; position: relative;
+}
+.slide {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: translateX(60px); pointer-events: none;
+  transition: opacity var(--transition), transform var(--transition);
+  padding: 60px 100px 60px 60px;
+}
+.slide.active {
+  opacity: 1; transform: translateX(0); pointer-events: all;
+}
+.slide.exit-left {
+  opacity: 0; transform: translateX(-60px);
+}
+
+/* ── Overview Mode ── */
+#slides-container.overview {
+  display: flex; flex-wrap: wrap; gap: 16px; padding: 40px; overflow-y: auto;
+  align-items: flex-start; justify-content: center;
+}
+#slides-container.overview .slide {
+  position: relative; width: 280px; height: 180px; opacity: 1;
+  transform: scale(1) translateX(0); pointer-events: all;
+  border: 2px solid rgba(255,255,255,0.1); border-radius: 12px;
+  cursor: pointer; transition: all 0.3s ease; padding: 12px;
+  flex-shrink: 0; overflow: hidden;
+}
+#slides-container.overview .slide:hover {
+  border-color: rgba(255,255,255,0.3); transform: scale(1.05);
+}
+#slides-container.overview .slide.active { border-color: var(--amber); }
+#slides-container.overview .slide * { transform: scale(0.25); transform-origin: top left; pointer-events: none; }
+
+/* ── Title Slide ── */
+.title-slide {
+  flex-direction: column; text-align: center; position: relative; overflow: hidden;
+}
+.title-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(6,182,212,0.12) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 30%, rgba(168,85,247,0.1) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 80%, rgba(245,158,11,0.08) 0%, transparent 50%);
+}
+.title-orb {
+  position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.4;
+  animation: float 8s ease-in-out infinite;
+}
+.title-orb:nth-child(1) { width: 300px; height: 300px; background: var(--cyan); top: 10%; left: 15%; animation-delay: 0s; }
+.title-orb:nth-child(2) { width: 250px; height: 250px; background: var(--purple); top: 50%; right: 20%; animation-delay: -3s; }
+.title-orb:nth-child(3) { width: 200px; height: 200px; background: var(--amber); bottom: 15%; left: 40%; animation-delay: -5s; }
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.05); }
+  66% { transform: translate(-20px, 15px) scale(0.95); }
+}
+.title-content { position: relative; z-index: 1; }
+.title-content h1 {
+  font-size: 3.8rem; font-weight: 800; letter-spacing: -1px; line-height: 1.1;
+  background: linear-gradient(135deg, #fff 0%, var(--cyan) 50%, var(--purple) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; margin-bottom: 16px;
+}
+.title-content .subtitle {
+  font-size: 1.3rem; color: var(--text-dim); font-weight: 300; margin-bottom: 40px;
+}
+.title-content .author {
+  font-size: 0.85rem; color: rgba(255,255,255,0.3); letter-spacing: 3px; text-transform: uppercase;
+}
+.title-tags {
+  display: flex; gap: 12px; justify-content: center; margin-top: 32px; flex-wrap: wrap;
+}
+.title-tag {
+  padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 500;
+  border: 1px solid; opacity: 0.7;
+}
+
+/* ── Section Intro Slides ── */
+.section-intro {
+  flex-direction: column; text-align: center;
+}
+.section-number {
+  font-family: 'Outfit', sans-serif; font-size: 8rem; font-weight: 800;
+  opacity: 0.08; position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -60%); line-height: 1;
+}
+.section-intro-content { position: relative; z-index: 1; max-width: 700px; }
+.section-icon { font-size: 3rem; margin-bottom: 20px; display: block; animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+.section-intro-content h2 {
+  font-size: 2.8rem; font-weight: 700; margin-bottom: 24px; letter-spacing: -0.5px;
+}
+.section-quote {
+  font-size: 1.15rem; font-style: italic; line-height: 1.7; color: var(--text-dim);
+  border-left: 3px solid; padding-left: 20px; text-align: left; max-width: 550px; margin: 0 auto;
+}
+
+/* ── Content Slides ── */
+.content-slide {
+  display: flex; gap: 40px; align-items: flex-start; width: 100%; max-width: 1200px;
+}
+.content-left { flex: 1.1; min-width: 0; }
+.content-right { flex: 0.9; min-width: 0; }
+
+.content-left h3 {
+  font-size: 1.5rem; font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
+}
+
+/* Protocol Cards */
+.protocol-card {
+  background: var(--bg-card); border-radius: 12px; padding: 16px 20px;
+  margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.06);
+  transition: all 0.3s ease; display: flex; gap: 14px; align-items: flex-start;
+}
+.protocol-card:hover {
+  background: var(--bg-card-hover); transform: translateX(4px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.card-num {
+  width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center;
+  justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0;
+  font-family: 'Outfit', sans-serif;
+}
+.card-body h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+.card-body p { font-size: 0.82rem; color: var(--text-dim); line-height: 1.5; }
+
+/* Badge */
+.badge {
+  display: inline-block; padding: 2px 8px; border-radius: 6px; font-weight: 600;
+  font-size: 0.8rem; font-family: 'Outfit', sans-serif;
+}
+
+/* Warning Card */
+.warning-card {
+  background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2);
+  border-radius: 12px; padding: 16px 20px; margin-bottom: 12px;
+}
+.warning-card h4 { color: var(--red); font-size: 0.9rem; margin-bottom: 6px; }
+.warning-card p { font-size: 0.82rem; color: var(--text-dim); line-height: 1.5; }
+
+/* Synergy Card */
+.synergy-card {
+  background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2);
+  border-radius: 12px; padding: 16px 20px; margin-bottom: 12px;
+}
+.synergy-card h4 { color: var(--green); font-size: 0.9rem; margin-bottom: 6px; }
+.synergy-card p { font-size: 0.82rem; color: var(--text-dim); line-height: 1.5; }
+
+/* Accordion */
+.accordion { margin-bottom: 10px; }
+.accordion-header {
+  background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px; padding: 14px 18px; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+  transition: all 0.3s ease; font-size: 0.9rem; font-weight: 500;
+}
+.accordion-header:hover { background: var(--bg-card-hover); }
+.accordion-arrow { transition: transform 0.3s ease; font-size: 0.8rem; }
+.accordion.open .accordion-arrow { transform: rotate(180deg); }
+.accordion-body {
+  max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+  padding: 0 18px;
+}
+.accordion.open .accordion-body { max-height: 400px; }
+.accordion-body-inner {
+  padding: 14px 0; font-size: 0.82rem; color: var(--text-dim); line-height: 1.6;
+}
+
+/* ── Dashboard Slide ── */
+.dashboard-slide { flex-direction: column; max-width: 1100px; width: 100%; }
+.dashboard-slide h2 { font-size: 2rem; font-weight: 700; margin-bottom: 30px; text-align: center; }
+.dashboard-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+}
+.dashboard-card {
+  background: var(--bg-card); border-radius: 14px; padding: 24px;
+  border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s ease;
+}
+.dashboard-card:hover {
+  background: var(--bg-card-hover); transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+.dashboard-card .dc-icon { font-size: 1.8rem; margin-bottom: 10px; display: block; }
+.dashboard-card h4 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+.dashboard-card .dc-keys {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;
+}
+.dashboard-card .dc-key {
+  padding: 3px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;
+  font-family: 'Outfit', sans-serif;
+}
+
+/* ── Section Color Themes ── */
+.theme-amber .card-num { background: rgba(245,158,11,0.15); color: var(--amber); }
+.theme-amber .badge { background: rgba(245,158,11,0.15); color: var(--amber); }
+.theme-amber .section-quote { border-color: var(--amber); }
+.theme-amber .section-intro-content h2 { color: var(--amber); }
+.theme-amber .content-left h3 { color: var(--amber); }
+.theme-amber .nav-dot.active { background: var(--amber); border-color: var(--amber); }
+
+.theme-cyan .card-num { background: rgba(6,182,212,0.15); color: var(--cyan); }
+.theme-cyan .badge { background: rgba(6,182,212,0.15); color: var(--cyan); }
+.theme-cyan .section-quote { border-color: var(--cyan); }
+.theme-cyan .section-intro-content h2 { color: var(--cyan); }
+.theme-cyan .content-left h3 { color: var(--cyan); }
+
+.theme-green .card-num { background: rgba(16,185,129,0.15); color: var(--green); }
+.theme-green .badge { background: rgba(16,185,129,0.15); color: var(--green); }
+.theme-green .section-quote { border-color: var(--green); }
+.theme-green .section-intro-content h2 { color: var(--green); }
+.theme-green .content-left h3 { color: var(--green); }
+
+.theme-purple .card-num { background: rgba(168,85,247,0.15); color: var(--purple); }
+.theme-purple .badge { background: rgba(168,85,247,0.15); color: var(--purple); }
+.theme-purple .section-quote { border-color: var(--purple); }
+.theme-purple .section-intro-content h2 { color: var(--purple); }
+.theme-purple .content-left h3 { color: var(--purple); }
+
+.theme-orange .card-num { background: rgba(249,115,22,0.15); color: var(--orange); }
+.theme-orange .badge { background: rgba(249,115,22,0.15); color: var(--orange); }
+.theme-orange .section-quote { border-color: var(--orange); }
+.theme-orange .section-intro-content h2 { color: var(--orange); }
+.theme-orange .content-left h3 { color: var(--orange); }
+
+.theme-pink .card-num { background: rgba(236,72,153,0.15); color: var(--pink); }
+.theme-pink .badge { background: rgba(236,72,153,0.15); color: var(--pink); }
+.theme-pink .section-quote { border-color: var(--pink); }
+.theme-pink .section-intro-content h2 { color: var(--pink); }
+.theme-pink .content-left h3 { color: var(--pink); }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div id="progress-bar"></div>
+
+<!-- Navigation Dots -->
+<div id="nav-dots"></div>
+
+<!-- Slide Counter -->
+<div id="slide-counter">1 / 20</div>
+
+<!-- Arrow Buttons -->
+<button class="nav-arrow" id="arrow-left" onclick="prevSlide()">&#8592;</button>
+<button class="nav-arrow" id="arrow-right" onclick="nextSlide()">&#8594;</button>
+
+<!-- Overview Button -->
+<button id="overview-btn" onclick="toggleOverview()" title="Übersicht (Esc)">&#9638;</button>
+
+<!-- Slides -->
+<div id="slides-container">
+
+<!-- ═══════════ SLIDE 1: TITLE ═══════════ -->
+<div class="slide title-slide active" data-section="title">
+  <div class="title-bg">
+    <div class="title-orb"></div>
+    <div class="title-orb"></div>
+    <div class="title-orb"></div>
+  </div>
+  <div class="title-content">
+    <h1>Huberman Lab<br>Protocols</h1>
+    <p class="subtitle">Wissenschaftlich fundierte Protokolle für Körper & Geist<br>2025 – 2026</p>
+    <div class="title-tags">
+      <span class="title-tag" style="color:var(--amber);border-color:rgba(245,158,11,0.4)">☀️ Morgenroutine</span>
+      <span class="title-tag" style="color:var(--cyan);border-color:rgba(6,182,212,0.4)">🧠 Neuroplastizität</span>
+      <span class="title-tag" style="color:var(--green);border-color:rgba(16,185,129,0.4)">💪 Resilienz</span>
+      <span class="title-tag" style="color:var(--purple);border-color:rgba(168,85,247,0.4)">💊 Supplemente</span>
+      <span class="title-tag" style="color:var(--orange);border-color:rgba(249,115,22,0.4)">🔴 Lichttherapie</span>
+      <span class="title-tag" style="color:var(--pink);border-color:rgba(236,72,153,0.4)">❤️ Emotionen</span>
+    </div>
+    <p class="author" style="margin-top:40px">Basierend auf dem Huberman Lab Podcast</p>
+  </div>
+</div>
+
+<!-- ═══════════ SLIDE 2: Section 1 Intro – Morgenroutine ═══════════ -->
+<div class="slide section-intro theme-amber" data-section="1">
+  <div class="section-number">01</div>
+  <div class="section-intro-content">
+    <span class="section-icon">☀️</span>
+    <h2>Morgenroutine</h2>
+    <blockquote class="section-quote">
+      "Die Morgenroutine dient der Synchronisierung der zirkadianen Rhythmen und der Optimierung von Hormon- und Neurotransmitterleveln für den Tag."
+    </blockquote>
+  </div>
+</div>
+
+<!-- ═══════════ SLIDE 3: Section 1 Content – Protokoll ═══════════ -->
+<div class="slide theme-amber" data-section="1">
+  <div class="content-slide">
+    <div class="content-left">
+      <h3>☀️ Das Morgen-Protokoll</h3>
+      <div class="protocol-card">
+        <div class="card-num">1</div>
+        <div class="card-body">
+          <h4>Sonnenlicht-Exposition</h4>
+          <p>Innerhalb der ersten <span class="badge">30–60 Min</span> nach dem Aufwachen für <span class="badge">5–30 Min</span> direktes Tageslicht – ohne Sonnenbrille. Aktiviert Melanopsin → SCN (Master-Uhr).</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="card-num">2</div>
+        <div class="card-body">
+          <h4>Hydratation</h4>
+          <p>Sofort <span class="badge">500–1000 ml</span> Wasser mit Elektrolyten (Meersalz). Unterstützt zelluläre Funktion und kognitive Wachheit.</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="card-num">3</div>
+        <div class="card-body">
+          <h4>Koffein-Delay</h4>
+          <p>Ersten Kaffee erst nach <span class="badge">90–120 Min</span> trinken. Ermöglicht natürlichen Adenosinabbau, verhindert Nachmittagstief.</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="card-num">4</div>
+        <div class="card-body">
+          <h4>Kälteexposition</h4>
+          <p>Kalte Dusche für <span class="badge">1–3 Min</span> oder <span class="badge">11 Min/Woche</span> gesamt. Löst massive Dopamin- und Adrenalin-Ausschüttung aus.</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="card-num">5</div>
+        <div class="card-body">
+          <h4>Bewegung</h4>
+          <p>Leichte Einheit (Gehen, Calisthenics) in den ersten <span class="badge">1–3 Std</span>. Erhöht Körpertemperatur → Signal für aktiven Tageszyklus.</p>
+        </div>
+      </div>
+    </div>
+    <div class="content-right">
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          🔬 Cortisol Awakening Response (CAR) <span class="accordion-arrow">▼</span>
+        </div>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          Der natürliche Cortisol-Anstieg kurz nach dem Aufwachen reguliert Wachheit und Stimmung. Photonen aktivieren Melanopsin in der Netzhaut → Signal an den SCN. Gleichzeitig wird Melatonin unterdrückt. Licht durch Fenster ist bis zu 50× schwächer als direktes Sonnenlicht.
+        </div></div>
+      </div>
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          🔬 Adenosin & Koffein-Mechanismus <span class="accordion-arrow">▼</span>
+        </div>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          Koffein blockiert Adenosin-Rezeptoren. Bei zu frühem Konsum bleibt Adenosin im System – sobald das Koffein nachlässt, kommt der "Afternoon Crash". Cortisol räumt Adenosin natürlich auf, wenn man ihm Zeit gibt.
+        </div></div>
+      </div>
+      <div class="warning-card">
+        <h4>⚠️ Häufige Fehler</h4>
+        <p>Sonnenbrille tragen (blockiert CAR) • Sofort zum Smartphone greifen (Dopamin-Fragmentierung) • Koffein direkt nach dem Aufstehen • Wasser ohne Elektrolyte</p>
+      </div>
+      <div class="synergy-card">
+        <h4>↔ Synergien</h4>
+        <p>Morgenlicht setzt den Timer für Melatoninausschüttung <span class="badge" style="background:rgba(16,185,129,0.15);color:var(--green)">14–16 Std</span> später → massiv bessere Schlafqualität. Kälte trainiert zusätzlich die Stressresilienz (→ Sektion 3).</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ SLIDE 4: Section 2 Intro – Lernen ═══════════ -->
+<div class="slide section-intro theme-cyan" data-section="2">
+  <div class="section-number">02</div>
+  <div class="section-intro-content">
+    <span class="section-icon">🧠</span>
+    <h2>Lernen & Neuroplastizität</h2>
+    <blockquote class="section-quote">
+      "Neuroplastizität erfordert im Erwachsenenalter spezifische neurochemische Zustände. Die eigentliche Umverdrahtung findet nicht während des Lernens, sondern in Ruhephasen statt."
+    </blockquote>
+  </div>
+</div>
+
+<!-- ═══════════ SLIDE 5: Section 2 Content – Super-Protokoll ═══════════ -->
+<div class="slide theme-cyan" data-section="2">
+  <div class="content-slide">
+    <div class="content-left">
+      <h3>🧠 Das Super-Lernprotokoll</h3>
+      <div class="protocol-card">
+        <div class="card-num">1</div>
+        <div class="card-body">
+          <h4>Wachheit steigern</h4>
+          <p><span class="badge">25–30</span> tiefe Atemzüge (kontrollierte Hyperventilation) zur Adrenalin-Steigerung vor dem Lernen.</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="card-num">2</div>
+        <div class="card-body">
+          <h4>Fokus schärfen</h4>
+          <p>Visuelle Fixierung eines Punktes für <span class="badge">30–60 Sek</span>. Synchronisiert die Aufmerksamkeitsschaltkreise im Gehirn.</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="card-num">3</div>
+        <div class="card-body">
+          <h4>Fokussierte Arbeit</h4>
+          <p>Maximale Repetitionen in <span class="badge">90 Min</span>-Blöcken. Nicht länger – danach sinkt die Effektivität rapide.</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="card-num">4</div>
+        <div class="card-body">
+          <h4>Fehler einplanen</h4>
+          <p>Fehlerrate von <span class="badge">~15%</span> anstreben. Fehler signalisieren dem Gehirn eine Diskrepanz → triggert Plastizität massiv.</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="card-num">5</div>
+        <div class="card-body">
+          <h4>Gap Effect</h4>
+          <p>Zufällige <span class="badge">10 Sek</span>-Pausen einbauen. Das Gehirn repetiert die Information mit <span class="badge">10×</span> Geschwindigkeit.</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="card-num">6</div>
+        <div class="card-body">
+          <h4>NSDR-Konsolidierung</h4>
+          <p>Innerhalb von <span class="badge">1 Std</span> nach dem Lernen eine <span class="badge">10–20 Min</span> NSDR-Einheit für Transfer ins Langzeitgedächtnis.</p>
+        </div>
+      </div>
+    </div>
+    <div class="content-right">
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          🔬 Epinephrin + Acetylcholin <span class="accordion-arrow">▼</span>
+        </div>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          Zwei Neurotransmitter sind entscheidend: Epinephrin (Adrenalin) für Wachheit und Acetylcholin für fokussierte Aufmerksamkeit. Zusammen markieren sie spezifische Synapsen für die Umverdrahtung. Der eigentliche neuronale Umbau passiert erst im Schlaf oder NSDR.
+        </div></div>
+      </div>
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          🔬 BDNF & körperliches Training <span class="accordion-arrow">▼</span>
+        </div>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          Körperliches Training vor dem Lernen erhöht den BDNF-Spiegel (Brain-Derived Neurotrophic Factor). BDNF "primt" den Hippocampus und macht ihn empfänglicher für neue Informationen – ein natürlicher Lern-Booster.
+        </div></div>
+      </div>
+      <div class="warning-card">
+        <h4>⚠️ Häufige Fehler</h4>
+        <p>Fehler vermeiden wollen (Perfektionismus hemmt Plastizität) • Ruhephase nach dem Lernen überspringen • Lernsessions über 90 Min ausdehnen</p>
+      </div>
+      <div class="synergy-card">
+        <h4>↔ Synergien</h4>
+        <p>Training vor dem Lernen → BDNF↑ → Hippocampus "geprimed". NSDR nach dem Lernen → Konsolidierung. Creatin (→ Sektion 4) verbessert das Gehirn-Energiesystem.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ SLIDE 6: Section 3 Intro – Stress ═══════════ -->
+<div class="slide section-intro theme-green" data-section="3">
+  <div class="section-number">03</div>
+  <div class="section-intro-content">
+    <span class="section-icon">💪</span>
+    <h2>Stressmanagement & Resilienz</h2>
+    <blockquote class="section-quote">
+      "Resilienz ist die Fähigkeit des Nervensystems, flexibel zwischen Zuständen hoher Erregung und tiefer Entspannung zu wechseln."
+    </blockquote>
+  </div>
+</div>
+
+<!-- ═══════════ SLIDE 7: Section 3 Content – Protokoll ═══════════ -->
+<div class="slide theme-green" data-section="3">
+  <div class="content-slide">
+    <div class="content-left">
+      <h3>💪 Resilienz-Protokoll</h3>
+      <div class="protocol-card">
+        <div class="card-num">1</div>
+        <div class="card-body">
+          <h4>Physiological Sigh</h4>
+          <p>Bei akutem Stress: Doppelte Einatmung durch die Nase (2. kurzer Schnapper) + lange Ausatmung durch den Mund. Schnellste Methode zur Herzraten-Senkung.</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="card-num">2</div>
+        <div class="card-body">
+          <h4>NSDR / Yoga Nidra</h4>
+          <p>Täglich <span class="badge">10–30 Min</span> Non-Sleep Deep Rest. Regeneriert Dopaminspeicher, senkt Cortisol. Optimal: Mittags gegen Energietief.</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="card-num">3</div>
+        <div class="card-body">
+          <h4>AMCC-Training (Micro-Suck)</h4>
+          <p>Täglich eine Aufgabe absolvieren, die subjektiv Überwindung erfordert. Lässt den Anterior Mid-Cingulate Cortex physisch wachsen → stärkere Willenskraft.</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="card-num">4</div>
+        <div class="card-body">
+          <h4>Zone 2 Cardio</h4>
+          <p><span class="badge">150–200 Min</span> pro Woche bei moderater Intensität. Erhöht die allgemeine psychische Belastbarkeit nachhaltig.</p>
+        </div>
+      </div>
+    </div>
+    <div class="content-right">
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          🔬 Der AMCC – Muskel der Willenskraft <span class="accordion-arrow">▼</span>
+        </div>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          Der Anterior Mid-Cingulate Cortex (AMCC) ist die Gehirnregion, die physisch wächst, wenn wir Dinge tun, die wir als schwierig empfinden und eigentlich nicht tun wollen. Bei Menschen, die sich als "willenstark" beschreiben, ist der AMCC messbar größer. Training: z.B. Eisbad wenn man es hasst, ungeliebte Aufgabe zuerst erledigen.
+        </div></div>
+      </div>
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          🔬 Sympathikus vs. Parasympathikus <span class="accordion-arrow">▼</span>
+        </div>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          Resilienz = die Balance zwischen Sympathikus (Kampf/Flucht) und Parasympathikus (Ruhe/Verdauung) über den Vagusnerv. Der Physiological Sigh ist der schnellste Weg, den Vagusnerv zu aktivieren und CO₂ aus den Alveolen abzuatmen.
+        </div></div>
+      </div>
+      <div class="warning-card">
+        <h4>⚠️ Häufige Fehler</h4>
+        <p>Denken, dass Stress per se schädlich ist – kurzfristiger Stress schärft den Fokus. Nur chronischer Stress ohne Erholungsintervalle führt zu Burnout.</p>
+      </div>
+      <div class="synergy-card">
+        <h4>↔ Synergien</h4>
+        <p>Kälteexposition aus der Morgenroutine (→ Sektion 1) trainiert die Fähigkeit, unter Stress ruhig zu bleiben. NSDR füllt Dopaminspeicher auf → besser Lernen (→ Sektion 2).</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ SLIDE 8: Section 4 Intro – Supplemente ═══════════ -->
+<div class="slide section-intro theme-purple" data-section="4">
+  <div class="section-number">04</div>
+  <div class="section-intro-content">
+    <span class="section-icon">💊</span>
+    <h2>Supplementierung 2026</h2>
+    <blockquote class="section-quote">
+      "Supplemente sind Werkzeuge für die letzten 10–15% der Leistungsoptimierung – sofern die Grundlagen Licht, Schlaf und Bewegung stimmen."
+    </blockquote>
+  </div>
+</div>
+
+<!-- ═══════════ SLIDE 9: Section 4 Content – Stacks ═══════════ -->
+<div class="slide theme-purple" data-section="4">
+  <div class="content-slide">
+    <div class="content-left">
+      <h3>💊 Stack 2026 – Basis & Langlebigkeit</h3>
+      <div class="protocol-card">
+        <div class="card-num">B1</div>
+        <div class="card-body">
+          <h4>Omega-3 (EPA-reich)</h4>
+          <p><span class="badge">2–4 g</span> täglich. Entzündungshemmung, Gehirngesundheit, kardiovaskulärer Schutz.</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="card-num">B2</div>
+        <div class="card-body">
+          <h4>Vitamin D3 + K2</h4>
+          <p><span class="badge">5.000–10.000 IU</span> täglich. Für Hormone, Knochen und Immunfunktion.</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="card-num">B3</div>
+        <div class="card-body">
+          <h4>Creatin-Monohydrat</h4>
+          <p><span class="badge">5 g</span> täglich. Nicht nur Muskeln – verbessert nachweislich Gehirn-Energiesystem und Gedächtnis.</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="card-num">L</div>
+        <div class="card-body">
+          <h4>NMN (Langlebigkeit)</h4>
+          <p><span class="badge">500 mg – 2 g</span> sublingual am Morgen. NAD⁺-Vorläufer für Zellreparatur und mitochondriale Energie.</p>
+        </div>
+      </div>
+    </div>
+    <div class="content-right">
+      <h3 style="font-size:1.2rem;font-weight:600;margin-bottom:16px;color:var(--purple)">💊 Schlaf- & Fokus-Stack</h3>
+      <div class="protocol-card">
+        <div class="card-num">S1</div>
+        <div class="card-body">
+          <h4>Magnesium-L-Threonat</h4>
+          <p><span class="badge">145–400 mg</span> vor dem Bett. Passiert die Blut-Hirn-Schranke.</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="card-num">S2</div>
+        <div class="card-body">
+          <h4>Apigenin</h4>
+          <p><span class="badge">50 mg</span> ca. <span class="badge">30–60 Min</span> vor dem Schlaf.</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="card-num">S3</div>
+        <div class="card-body">
+          <h4>L-Theanin</h4>
+          <p><span class="badge">100–400 mg</span> abends. ⚠️ Meiden bei intensiven Träumen/Schlafwandeln.</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="card-num">F</div>
+        <div class="card-body">
+          <h4>Fokus-Stack</h4>
+          <p><span class="badge">300 mg</span> Alpha-GPC (4×/Woche) + <span class="badge">500 mg</span> L-Tyrosin (gelegentlich vor Stressphasen).</p>
+        </div>
+      </div>
+      <div class="warning-card">
+        <h4>⚠️ Häufige Fehler</h4>
+        <p>Supplemente als Ersatz für schlechten Schlaf oder fehlendes Licht nutzen – sie sind nur die letzten 10–15%!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ SLIDE 10: Section 5 Intro – Licht ═══════════ -->
+<div class="slide section-intro theme-orange" data-section="5">
+  <div class="section-number">05</div>
+  <div class="section-intro-content">
+    <span class="section-icon">🔴</span>
+    <h2>Lichttherapie</h2>
+    <blockquote class="section-quote">
+      "Lichtwellenlängen steuern die mitochondriale Effizienz. Während rotes Licht die ATP-Produktion fördert, wird LED-Überexposition kritisch mit 'Asbest' verglichen."
+    </blockquote>
+  </div>
+</div>
+
+<!-- ═══════════ SLIDE 11: Section 5 Content – Protokoll ═══════════ -->
+<div class="slide theme-orange" data-section="5">
+  <div class="content-slide">
+    <div class="content-left">
+      <h3>🔴 Photobiomodulation-Protokoll</h3>
+      <div class="protocol-card">
+        <div class="card-num">1</div>
+        <div class="card-body">
+          <h4>Retina-Schutz (Morgendliches Rotlicht)</h4>
+          <p><span class="badge">2–5 Min</span> rotes Licht bei <span class="badge">670 nm</span> aus ca. <span class="badge">1 m</span> Entfernung. Stärkt die Mitochondrien der Augen, verbessert Sehkraft im Alter.</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="card-num">2</div>
+        <div class="card-body">
+          <h4>Stoffwechsel-Hack</h4>
+          <p>Rotlichtbestrahlung des Rückens nach einer Mahlzeit → Blutzucker sinkt um über <span class="badge">&gt;20%</span>. Steigert ATP-Produktion in den Mitochondrien.</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="card-num">3</div>
+        <div class="card-body">
+          <h4>Indoor-Anpassung</h4>
+          <p>In viel genutzten Räumen LEDs durch Halogen-/Glühlampen ersetzen. Modernes LED-Licht hat ein "zackiges" Spektrum – viel Blau, kaum Rot/Infrarot.</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="card-num">4</div>
+        <div class="card-body">
+          <h4>Abendliche Lichtdisziplin</h4>
+          <p>Ab <span class="badge">22 Uhr</span> harte LEDs meiden. Stattdessen: gedimmte Halogenlampen, Kerzenlicht oder niedrig positionierte warme Quellen.</p>
+        </div>
+      </div>
+    </div>
+    <div class="content-right">
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          🔬 Mitochondrien & 670nm-Wellenlänge <span class="accordion-arrow">▼</span>
+        </div>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          Mitochondrien (besonders in der Retina und im Gehirn) besitzen Rezeptoren für langwelliges Licht bei 670 nm. Diese Wellenlänge regt die ATP-Produktion an und fördert Zellreparatur. Die Retina-Mitochondrien sind besonders anfällig für Degeneration im Alter.
+        </div></div>
+      </div>
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          🔬 LED-Spektrum: Das "Asbest"-Problem <span class="accordion-arrow">▼</span>
+        </div>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          Dr. Glen Jeffery vergleicht langfristige LED-Überexposition (besonders bei Kindern) mit Asbest. Moderne LEDs haben hohe Blaulicht-Peaks, aber fast kein Rot/Infrarot. Dies kann zu mitochondrialer Dysfunktion und Myopie (Kurzsichtigkeit) beitragen. Lösung: Halogen/Glühlampen + viel Zeit draußen.
+        </div></div>
+      </div>
+      <div class="warning-card">
+        <h4>⚠️ Häufige Fehler</h4>
+        <p>Laser statt LED-Panels zu Wellness-Zwecken (Netzhautschäden!) • In zu helle DIY-Rotlichtquellen starren • Jegliches helles Kunstlicht zwischen 22–4 Uhr</p>
+      </div>
+      <div class="synergy-card">
+        <h4>↔ Synergien</h4>
+        <p>Rotlicht am Morgen kompensiert negative Effekte von Bildschirmarbeit am Tag. Abendliche Lichtdisziplin → bessere Melatonin-Produktion (→ Sektion 1: Morgenroutine).</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ SLIDE 12: Section 6 Intro – Emotionen ═══════════ -->
+<div class="slide section-intro theme-pink" data-section="6">
+  <div class="section-number">06</div>
+  <div class="section-intro-content">
+    <span class="section-icon">❤️</span>
+    <h2>Emotionen & Soziale Verbindung</h2>
+    <blockquote class="section-quote">
+      "Emotionen wie Ehrfurcht und soziale Mechanismen wie Verlegenheit senken messbar Entzündungswerte und fördern die Immunfunktion."
+    </blockquote>
+  </div>
+</div>
+
+<!-- ═══════════ SLIDE 13: Section 6 Content – Protokoll ═══════════ -->
+<div class="slide theme-pink" data-section="6">
+  <div class="content-slide">
+    <div class="content-left">
+      <h3>❤️ Soziale Protokolle</h3>
+      <div class="protocol-card">
+        <div class="card-num">1</div>
+        <div class="card-body">
+          <h4>Awe Walk</h4>
+          <p>Einmal wöchentlich <span class="badge">15–30 Min</span> spazieren. Fokus bewusst von Details (Blatt) zur Weite (Horizont, Baumkronen) verschieben. Aktiviert den Parasympathikus.</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="card-num">2</div>
+        <div class="card-body">
+          <h4>Collective Effervescence</h4>
+          <p>Teilnahme an synchronisierenden Gruppenaktivitäten: Konzerte, Sport, Singen, gemeinsame Mahlzeiten ohne Technik. Führt zu neuronaler Synchronisation.</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="card-num">3</div>
+        <div class="card-body">
+          <h4>Social Grooming</h4>
+          <p>Spielerisches Necken (Playful Teasing) + Augenkontakt → Oxytocinfreisetzung. Verlegenheit zeigen = Signal für Gruppen-Commitment und Vertrauen.</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="card-num">4</div>
+        <div class="card-body">
+          <h4>Analoges Bonding</h4>
+          <p>Lagerfeuer oder gemeinsames Kochen. Infrarotlicht + Storytelling aktivieren das parasympathische Nervensystem auf natürliche Weise.</p>
+        </div>
+      </div>
+    </div>
+    <div class="content-right">
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          🔬 Awe & Entzündungsmarker <span class="accordion-arrow">▼</span>
+        </div>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          Staunen (Awe) aktiviert den parasympathischen Vagusnerv und senkt die Produktion pro-inflammatorischer Zytokine (Entzündungsmarker). Die Effekte eines wöchentlichen Awe-Walks sind noch Jahre später messbar – reduziert physischen Schmerz und verbessert die Gehirngesundheit.
+        </div></div>
+      </div>
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          🔬 Physiologische Synchronisation <span class="accordion-arrow">▼</span>
+        </div>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          Bei "Collective Effervescence" synchronisieren sich Herzraten und Gehirnwellen einer Gruppe. Dies erzeugt das Gefühl des "Aufgehens in etwas Größerem" – ein evolutionär tief verankerter Mechanismus für sozialen Zusammenhalt und Zugehörigkeit.
+        </div></div>
+      </div>
+      <div class="warning-card">
+        <h4>⚠️ Häufige Fehler</h4>
+        <p>Asynchrone Kommunikation (Textnachrichten) als Ersatz für echte Verbindung sehen • Video-Calls sind minderwertig, da technisch bedingter fehlender Augenkontakt</p>
+      </div>
+      <div class="synergy-card">
+        <h4>↔ Synergien</h4>
+        <p>Awe-Walk = Zone 2 Cardio light (→ Sektion 3). Lagerfeuer-Infrarotlicht wirkt ähnlich wie Photobiomodulation (→ Sektion 5). Soziale Bindung stärkt Resilienz langfristig.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ SLIDE 14: DASHBOARD ═══════════ -->
+<div class="slide dashboard-slide" data-section="dashboard">
+  <h2>📊 Protokoll-Übersicht – Alle Sektionen auf einen Blick</h2>
+  <div class="dashboard-grid">
+    <div class="dashboard-card" style="border-top: 3px solid var(--amber);">
+      <span class="dc-icon">☀️</span>
+      <h4 style="color:var(--amber)">1. Morgenroutine</h4>
+      <p style="font-size:0.82rem;color:var(--text-dim);line-height:1.4">Zirkadiane Synchronisierung durch Licht, Hydratation, Koffein-Delay und Kälte</p>
+      <div class="dc-keys">
+        <span class="dc-key" style="background:rgba(245,158,11,0.15);color:var(--amber)">30–60 Min Licht</span>
+        <span class="dc-key" style="background:rgba(245,158,11,0.15);color:var(--amber)">90 Min Koffein-Delay</span>
+        <span class="dc-key" style="background:rgba(245,158,11,0.15);color:var(--amber)">1–3 Min Kälte</span>
+      </div>
+    </div>
+    <div class="dashboard-card" style="border-top: 3px solid var(--cyan);">
+      <span class="dc-icon">🧠</span>
+      <h4 style="color:var(--cyan)">2. Neuroplastizität</h4>
+      <p style="font-size:0.82rem;color:var(--text-dim);line-height:1.4">Super-Lernprotokoll mit Gap Effect, Fehlerrate und NSDR-Konsolidierung</p>
+      <div class="dc-keys">
+        <span class="dc-key" style="background:rgba(6,182,212,0.15);color:var(--cyan)">15% Fehlerrate</span>
+        <span class="dc-key" style="background:rgba(6,182,212,0.15);color:var(--cyan)">90 Min Blöcke</span>
+        <span class="dc-key" style="background:rgba(6,182,212,0.15);color:var(--cyan)">10× Gap Effect</span>
+      </div>
+    </div>
+    <div class="dashboard-card" style="border-top: 3px solid var(--green);">
+      <span class="dc-icon">💪</span>
+      <h4 style="color:var(--green)">3. Stressmanagement</h4>
+      <p style="font-size:0.82rem;color:var(--text-dim);line-height:1.4">Physiological Sigh, AMCC-Training, NSDR und Zone 2 Cardio</p>
+      <div class="dc-keys">
+        <span class="dc-key" style="background:rgba(16,185,129,0.15);color:var(--green)">10–30 Min NSDR</span>
+        <span class="dc-key" style="background:rgba(16,185,129,0.15);color:var(--green)">150–200 Min Z2</span>
+        <span class="dc-key" style="background:rgba(16,185,129,0.15);color:var(--green)">Micro-Suck</span>
+      </div>
+    </div>
+    <div class="dashboard-card" style="border-top: 3px solid var(--purple);">
+      <span class="dc-icon">💊</span>
+      <h4 style="color:var(--purple)">4. Supplementierung</h4>
+      <p style="font-size:0.82rem;color:var(--text-dim);line-height:1.4">Basis-Stack, Schlaf-Stack, Fokus-Stack und Langlebigkeits-Protokoll</p>
+      <div class="dc-keys">
+        <span class="dc-key" style="background:rgba(168,85,247,0.15);color:var(--purple)">5g Creatin</span>
+        <span class="dc-key" style="background:rgba(168,85,247,0.15);color:var(--purple)">2–4g Omega-3</span>
+        <span class="dc-key" style="background:rgba(168,85,247,0.15);color:var(--purple)">2g NMN</span>
+      </div>
+    </div>
+    <div class="dashboard-card" style="border-top: 3px solid var(--orange);">
+      <span class="dc-icon">🔴</span>
+      <h4 style="color:var(--orange)">5. Lichttherapie</h4>
+      <p style="font-size:0.82rem;color:var(--text-dim);line-height:1.4">Photobiomodulation mit 670nm, LED-Gefahren und Abend-Lichtdisziplin</p>
+      <div class="dc-keys">
+        <span class="dc-key" style="background:rgba(249,115,22,0.15);color:var(--orange)">670 nm Rotlicht</span>
+        <span class="dc-key" style="background:rgba(249,115,22,0.15);color:var(--orange)">&gt;20% Blutzucker↓</span>
+        <span class="dc-key" style="background:rgba(249,115,22,0.15);color:var(--orange)">22 Uhr LED-Stopp</span>
+      </div>
+    </div>
+    <div class="dashboard-card" style="border-top: 3px solid var(--pink);">
+      <span class="dc-icon">❤️</span>
+      <h4 style="color:var(--pink)">6. Emotionen</h4>
+      <p style="font-size:0.82rem;color:var(--text-dim);line-height:1.4">Awe Walks, Collective Effervescence, Social Grooming und analoges Bonding</p>
+      <div class="dc-keys">
+        <span class="dc-key" style="background:rgba(236,72,153,0.15);color:var(--pink)">15–30 Min Awe Walk</span>
+        <span class="dc-key" style="background:rgba(236,72,153,0.15);color:var(--pink)">Oxytocin↑</span>
+        <span class="dc-key" style="background:rgba(236,72,153,0.15);color:var(--pink)">Zytokine↓</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /slides-container -->
+
+<script>
+// ── Slide Engine ──
+const slides = document.querySelectorAll('.slide');
+const totalSlides = slides.length;
+let currentSlide = 0;
+let isOverview = false;
+
+// Section mapping for nav dots
+const sectionInfo = [
+  { label: '', slides: [0] },
+  { label: 'Morgen', color: 'var(--amber)', slides: [1, 2] },
+  { label: 'Lernen', color: 'var(--cyan)', slides: [3, 4] },
+  { label: 'Stress', color: 'var(--green)', slides: [5, 6] },
+  { label: 'Suppl.', color: 'var(--purple)', slides: [7, 8] },
+  { label: 'Licht', color: 'var(--orange)', slides: [9, 10] },
+  { label: 'Emotion', color: 'var(--pink)', slides: [11, 12] },
+  { label: '', slides: [13] }
+];
+
+// Build nav dots
+const navDots = document.getElementById('nav-dots');
+sectionInfo.forEach((section, si) => {
+  if (section.label) {
+    const label = document.createElement('div');
+    label.className = 'nav-section-label';
+    label.textContent = section.label;
+    label.style.color = section.color;
+    navDots.appendChild(label);
+  }
+  section.slides.forEach(slideIdx => {
+    const dot = document.createElement('div');
+    dot.className = 'nav-dot';
+    dot.dataset.slide = slideIdx;
+    dot.addEventListener('click', () => goToSlide(slideIdx));
+    if (slideIdx === 0) dot.classList.add('active');
+    navDots.appendChild(dot);
+  });
+});
+
+function updateUI() {
+  // Progress bar
+  const progress = ((currentSlide) / (totalSlides - 1)) * 100;
+  document.getElementById('progress-bar').style.width = progress + '%';
+
+  // Slide counter
+  document.getElementById('slide-counter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+
+  // Nav dots
+  document.querySelectorAll('.nav-dot').forEach(dot => {
+    dot.classList.toggle('active', parseInt(dot.dataset.slide) === currentSlide);
+    // Color the active dot based on section
+    if (parseInt(dot.dataset.slide) === currentSlide) {
+      const section = slides[currentSlide].dataset.section;
+      const colors = { '1': 'var(--amber)', '2': 'var(--cyan)', '3': 'var(--green)',
+                        '4': 'var(--purple)', '5': 'var(--orange)', '6': 'var(--pink)' };
+      const c = colors[section] || 'var(--amber)';
+      dot.style.background = c;
+      dot.style.borderColor = c;
+    } else {
+      dot.style.background = '';
+      dot.style.borderColor = '';
+    }
+  });
+}
+
+function goToSlide(idx, direction) {
+  if (idx < 0 || idx >= totalSlides || idx === currentSlide) return;
+  if (isOverview) { toggleOverview(); }
+
+  const dir = direction || (idx > currentSlide ? 'next' : 'prev');
+  const prev = currentSlide;
+
+  // 1) Alten Slide ausblenden
+  slides[prev].classList.remove('active');
+  if (dir === 'next') {
+    slides[prev].classList.add('exit-left');
+  }
+
+  // 2) Neuen Slide vorbereiten: Transition aus, Startposition setzen
+  slides[idx].style.transition = 'none';
+  slides[idx].style.opacity = '0';
+  slides[idx].style.transform = dir === 'next' ? 'translateX(60px)' : 'translateX(-60px)';
+
+  // 3) Reflow erzwingen – Browser committet die Startposition
+  void slides[idx].offsetWidth;
+
+  // 4) Transition wieder an, active setzen → Animation startet
+  slides[idx].style.transition = '';
+  slides[idx].style.opacity = '';
+  slides[idx].style.transform = '';
+  slides[idx].classList.add('active');
+
+  // 5) Cleanup nach Transition
+  setTimeout(() => {
+    slides[prev].classList.remove('exit-left');
+  }, 550);
+
+  currentSlide = idx;
+  updateUI();
+}
+
+function nextSlide() { goToSlide(currentSlide + 1, 'next'); }
+function prevSlide() { goToSlide(currentSlide - 1, 'prev'); }
+
+function toggleOverview() {
+  const container = document.getElementById('slides-container');
+  isOverview = !isOverview;
+  if (isOverview) {
+    container.classList.add('overview');
+    slides.forEach((s, i) => {
+      s.classList.add('active');
+      s.style.transform = '';
+      s.onclick = () => { goToSlide(i); };
+    });
+  } else {
+    container.classList.remove('overview');
+    slides.forEach((s, i) => {
+      s.onclick = null;
+      if (i !== currentSlide) {
+        s.classList.remove('active');
+      }
+    });
+  }
+}
+
+// Accordion
+function toggleAccordion(header) {
+  const acc = header.parentElement;
+  acc.classList.toggle('open');
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); nextSlide(); }
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); prevSlide(); }
+  if (e.key === 'Escape') { e.preventDefault(); toggleOverview(); }
+  if (e.key === 'Home') { e.preventDefault(); goToSlide(0); }
+  if (e.key === 'End') { e.preventDefault(); goToSlide(totalSlides - 1); }
+});
+
+// Touch/Swipe support
+let touchStartX = 0;
+document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+document.addEventListener('touchend', (e) => {
+  const diff = touchStartX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 50) { diff > 0 ? nextSlide() : prevSlide(); }
+});
+
+// Initial state
+updateUI();
+</script>
+</body>
+</html>
