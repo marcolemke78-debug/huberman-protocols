@@ -208,6 +208,14 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
 }
 .card-body h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
 .card-body p { font-size: 0.82rem; color: var(--text-dim); line-height: 1.5; }
+.card-products {
+  font-size: 0.75rem !important; line-height: 1.55 !important;
+  color: rgba(255,255,255,0.55) !important;
+  margin-top: 8px; padding-top: 8px;
+  border-top: 1px dashed rgba(255,255,255,0.08);
+}
+.card-products strong { color: rgba(255,255,255,0.75); font-weight: 600; }
+.card-products .prod-icon { margin-right: 4px; opacity: 0.8; }
 
 /* Badge */
 .badge {
@@ -357,6 +365,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
   .card-num { width: 28px; height: 28px; font-size: 0.78rem; }
   .card-body h4 { font-size: 0.88rem; }
   .card-body p { font-size: 0.78rem; line-height: 1.45; }
+  .card-products { font-size: 0.72rem !important; margin-top: 6px; padding-top: 6px; }
   .warning-card, .synergy-card { padding: 12px 14px; margin-bottom: 10px; }
   .warning-card h4, .synergy-card h4 { font-size: 0.85rem; }
   .warning-card p, .synergy-card p { font-size: 0.78rem; }
@@ -468,6 +477,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>Sonnenlicht-Exposition</h4>
           <p>Innerhalb der ersten <span class="badge">30–60 Min</span> nach dem Aufwachen für <span class="badge">5–30 Min</span> direktes Tageslicht – ohne Sonnenbrille. Aktiviert Melanopsin → SCN (Master-Uhr).</p>
+          <p class="card-products"><span class="prod-icon">🌞</span><strong>Im Winter / bei Bewölkung:</strong> Tageslichtlampe mit ≥10.000 Lux, z.B. <em>Philips HF3430</em>, <em>Beurer TL 100</em>, <em>Yocan Lightbox</em>. <strong>Alternative:</strong> trotzdem raus – 5 Min bewölkter Himmel liefert noch 10.000+ Lux, Fenster blockiert das meiste UV.</p>
         </div>
       </div>
       <div class="protocol-card">
@@ -475,6 +485,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>Hydratation</h4>
           <p>Sofort <span class="badge">500–1000 ml</span> Wasser mit Elektrolyten (Meersalz). Unterstützt zelluläre Funktion und kognitive Wachheit.</p>
+          <p class="card-products"><span class="prod-icon">🧂</span><strong>Huberman-Favorit:</strong> <em>LMNT</em> (1 Stick = 1000 mg Natrium + 200 mg Kalium + 60 mg Magnesium). <strong>Günstige Alternativen:</strong> <em>Ultima Replenisher</em>, <em>Re-Lyte</em>. <strong>DIY-Rezept:</strong> 500 ml Wasser + 1 TL unraffiniertes Meersalz (<em>Fleur de Sel</em>, <em>Maldon</em> oder Himalaya) + Spritzer Zitrone + evtl. eine Prise Kaliumchlorid (<em>Nu-Salt</em>).</p>
         </div>
       </div>
       <div class="protocol-card">
@@ -482,6 +493,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>Koffein-Delay</h4>
           <p>Ersten Kaffee erst nach <span class="badge">90–120 Min</span> trinken. Ermöglicht natürlichen Adenosinabbau, verhindert Nachmittagstief.</p>
+          <p class="card-products"><span class="prod-icon">☕</span><strong>Praktisch:</strong> Wecker beim Aufstehen auf "+100 Min" stellen. <strong>Übergangs-Trick:</strong> entkoffeinierter Kaffee oder Yerba Mate (weniger Koffein, länger haltbar). <strong>Letztes Koffein:</strong> spätestens 8–10 h vor dem Schlaf (Halbwertszeit 5 h). App: <em>UpCoffee</em> (trackt Koffein-Halbwertszeit).</p>
         </div>
       </div>
       <div class="protocol-card">
@@ -489,6 +501,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>Kälteexposition</h4>
           <p>Kalte Dusche für <span class="badge">1–3 Min</span> oder <span class="badge">11 Min/Woche</span> gesamt. Löst massive Dopamin- und Adrenalin-Ausschüttung aus.</p>
+          <p class="card-products"><span class="prod-icon">🧊</span><strong>Einsteiger:</strong> normale Dusche, am Ende 60 s auf kalt (Endtemp ca. 10–15 °C). <strong>Fortgeschritten:</strong> Eisbad – <em>Ice Barrel 400</em>, <em>The Cold Plunge</em> (teuer); günstig: <em>Lidl Stock-Tank</em> + 2 Säcke Eis. <strong>DIY-Tub:</strong> 120 l Baumarktwanne im Garten ab ca. 60 €. Timer-App: <em>Wim Hof Method</em>.</p>
         </div>
       </div>
       <div class="protocol-card">
@@ -496,6 +509,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>Bewegung</h4>
           <p>Leichte Einheit (Gehen, Calisthenics) in den ersten <span class="badge">1–3 Std</span>. Erhöht Körpertemperatur → Signal für aktiven Tageszyklus.</p>
+          <p class="card-products"><span class="prod-icon">🚶</span><strong>Minimum:</strong> 10 Min zügig gehen kombiniert mit dem Sonnenlicht-Punkt. <strong>Etwas mehr:</strong> 5 Runden Calisthenics (Liegestütze, Kniebeugen, Plank). <strong>Optimal für Gehirn:</strong> 20–30 Min Zone-2-Cardio (Radeln, Joggen, Rudern). Pulsmesser: <em>Polar H10</em> oder <em>Apple Watch</em>.</p>
         </div>
       </div>
     </div>
@@ -550,6 +564,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>Wachheit steigern</h4>
           <p><span class="badge">25–30</span> tiefe Atemzüge (kontrollierte Hyperventilation) zur Adrenalin-Steigerung vor dem Lernen.</p>
+          <p class="card-products"><span class="prod-icon">🫁</span><strong>Anleitung:</strong> Wim-Hof-Method (kostenlose YouTube-Videos von Wim Hof) oder <em>Wim Hof Method App</em>. <strong>Sanftere Alternative:</strong> 5× 4-4-4-4 Box Breathing (App: <em>State</em> von Huberman, <em>Breathwrk</em>). <strong>Wichtig:</strong> nicht im Stehen oder in der Badewanne – Schwindelgefahr.</p>
         </div>
       </div>
       <div class="protocol-card">
@@ -557,6 +572,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>Fokus schärfen</h4>
           <p>Visuelle Fixierung eines Punktes für <span class="badge">30–60 Sek</span>. Synchronisiert die Aufmerksamkeitsschaltkreise im Gehirn.</p>
+          <p class="card-products"><span class="prod-icon">🎯</span><strong>Praktisch:</strong> Aufkleber oder Post-it an der Wand 1–2 m vor dem Schreibtisch. <strong>Unterwegs:</strong> entfernten Baum oder Straßenlaterne fixieren. <strong>Digital:</strong> Full-Screen-Bild eines Punktes (Website: <em>dontforgettoblink.com</em>). Huberman erwähnt dies als "visual focus wakes mental focus".</p>
         </div>
       </div>
       <div class="protocol-card">
@@ -564,6 +580,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>Fokussierte Arbeit</h4>
           <p>Maximale Repetitionen in <span class="badge">90 Min</span>-Blöcken. Nicht länger – danach sinkt die Effektivität rapide.</p>
+          <p class="card-products"><span class="prod-icon">⏱️</span><strong>Timer-Apps:</strong> <em>Flow</em> (macOS, minimalistisch), <em>Focus To-Do</em> (mit Statistik), <em>Session</em>. <strong>Ablenkungsblocker:</strong> <em>Cold Turkey</em>, <em>Freedom</em>, <em>one sec</em> (iOS-Delay vor Social Apps). <strong>Regel:</strong> Handy in anderen Raum – nur die Abwesenheit (nicht "lautlos") schaltet es aus dem Kopf.</p>
         </div>
       </div>
       <div class="protocol-card">
@@ -571,6 +588,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>Fehler einplanen</h4>
           <p>Fehlerrate von <span class="badge">~15%</span> anstreben. Fehler signalisieren dem Gehirn eine Diskrepanz → triggert Plastizität massiv.</p>
+          <p class="card-products"><span class="prod-icon">📝</span><strong>Umsetzung mit Anki:</strong> Schwierigkeitsgrad so wählen, dass ca. 1 von 7 Karten falsch ist. <strong>Beim Sport:</strong> Gewicht wählen, bei dem die letzten 2 Wiederholungen scheitern. <strong>Für Schule:</strong> absichtlich die nächsthöhere Niveaustufe wählen (z.B. Übungsaufgaben aus Klasse 10, wenn man Klasse 8 macht). Wichtig: Fehler ≠ Versagen, sondern Lernsignal.</p>
         </div>
       </div>
       <div class="protocol-card">
@@ -578,6 +596,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>Gap Effect</h4>
           <p>Zufällige <span class="badge">10 Sek</span>-Pausen einbauen. Das Gehirn repetiert die Information mit <span class="badge">10×</span> Geschwindigkeit.</p>
+          <p class="card-products"><span class="prod-icon">⏸️</span><strong>Studie:</strong> Duszkiewicz/Buzsáki 2021 – Hippocampus "rewind" in Micro-Pausen. <strong>Praktisch:</strong> beim Vokabelnlernen nach jedem Begriff 10 s Augen zu, nichts denken. <strong>Interval-Timer-Apps:</strong> <em>HIIT Interval Timer</em>, <em>Seconds Pro</em> (iOS) – 50 s Lernen / 10 s Pause als Vorlage. Kein aktives "merken" in der Pause – nur ruhen.</p>
         </div>
       </div>
       <div class="protocol-card">
@@ -585,6 +604,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>NSDR-Konsolidierung</h4>
           <p>Innerhalb von <span class="badge">1 Std</span> nach dem Lernen eine <span class="badge">10–20 Min</span> NSDR-Einheit für Transfer ins Langzeitgedächtnis.</p>
+          <p class="card-products"><span class="prod-icon">🧘</span><strong>Huberman's eigene NSDR:</strong> YouTube "Huberman NSDR 10 min" (kostenlos). <strong>Apps:</strong> <em>Reveri</em> (Stanford-Methode, Co-Founder Huberman), <em>Insight Timer</em> (kostenlos, Yoga-Nidra-Filter), <em>Balance</em>. <strong>Auf Deutsch:</strong> "7Mind" hat Yoga-Nidra-Sessions. <strong>Position:</strong> auf dem Rücken, Decke über die Augen, nicht einschlafen.</p>
         </div>
       </div>
     </div>
@@ -639,6 +659,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>Physiological Sigh</h4>
           <p>Bei akutem Stress: Doppelte Einatmung durch die Nase (2. kurzer Schnapper) + lange Ausatmung durch den Mund. Schnellste Methode zur Herzraten-Senkung.</p>
+          <p class="card-products"><span class="prod-icon">😮‍💨</span><strong>Anleitung:</strong> 1–3 Züge reichen für spürbare Beruhigung. Studie: Balban/Huberman 2023 zeigt Überlegenheit gegenüber Achtsamkeit. <strong>Apps:</strong> <em>Breathwrk</em> (hat den "Cyclic Sigh"-Preset), <em>State</em>. <strong>Merke dir:</strong> doppelt ein durch die Nase, lang aus durch den Mund – jederzeit, ohne Hilfsmittel.</p>
         </div>
       </div>
       <div class="protocol-card">
@@ -646,6 +667,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>NSDR / Yoga Nidra</h4>
           <p>Täglich <span class="badge">10–30 Min</span> Non-Sleep Deep Rest. Regeneriert Dopaminspeicher, senkt Cortisol. Optimal: Mittags gegen Energietief.</p>
+          <p class="card-products"><span class="prod-icon">🛏️</span><strong>Kostenlos:</strong> Huberman NSDR (YouTube, 10/20/30 Min Varianten). <strong>Deutschsprachig:</strong> Kamini-Desai-Yoga-Nidra auf <em>Insight Timer</em>. <strong>Zeitpunkt:</strong> nach dem Mittagessen (anstelle Kaffee) oder nach einer Lernsession. <strong>Setup:</strong> Schlafmaske (<em>Manta Sleep</em>), leiser Raum, Kopfhörer. <strong>Nicht:</strong> direkt vor dem Autofahren.</p>
         </div>
       </div>
       <div class="protocol-card">
@@ -653,6 +675,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>AMCC-Training (Micro-Suck)</h4>
           <p>Täglich eine Aufgabe absolvieren, die subjektiv Überwindung erfordert. Lässt den Anterior Mid-Cingulate Cortex physisch wachsen → stärkere Willenskraft.</p>
+          <p class="card-products"><span class="prod-icon">💪</span><strong>Beispiele aus dem Alltag:</strong> kalte Dusche, 20 Burpees vor dem Frühstück, ungeliebte E-Mail zuerst schreiben, 10 Min länger joggen als geplant. <strong>Kernkriterium:</strong> du willst es wirklich nicht – nur dann zählt es. <strong>Dokumentieren:</strong> Journal-Apps wie <em>Day One</em> oder <em>Streaks</em>, einfach "✓ Micro-Suck heute". <strong>Buch:</strong> "Die 5-Sekunden-Regel" (Mel Robbins) als Einstieg.</p>
         </div>
       </div>
       <div class="protocol-card">
@@ -660,6 +683,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>Zone 2 Cardio</h4>
           <p><span class="badge">150–200 Min</span> pro Woche bei moderater Intensität. Erhöht die allgemeine psychische Belastbarkeit nachhaltig.</p>
+          <p class="card-products"><span class="prod-icon">🚴</span><strong>Intensitäts-Test:</strong> "Nasal Breathing" – noch durch die Nase atmen können = Zone 2. Alternativ: 180 − Alter = obere Puls-Grenze (Attia/Maffetone). <strong>Optionen:</strong> zügiges Gehen am Berg, Radeln, Rudern (<em>Concept2</em>), Crosstrainer, Schwimmen. <strong>Pulsmesser:</strong> <em>Polar H10</em> Brustgurt (genauer), <em>Apple Watch</em> (praktisch), <em>Garmin Forerunner</em>.</p>
         </div>
       </div>
     </div>
@@ -714,6 +738,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>Omega-3 (EPA-reich)</h4>
           <p><span class="badge">2–4 g</span> täglich. Entzündungshemmung, Gehirngesundheit, kardiovaskulärer Schutz.</p>
+          <p class="card-products"><span class="prod-icon">💊</span><strong>Huberman-Favorit:</strong> <em>Momentous Fish Oil</em> (1,6 g EPA/Dosis). <strong>Gute Alternativen:</strong> <em>Nordic Naturals Ultimate Omega</em>, <em>Carlson Labs Elite EPA</em>, <em>Norsan Omega-3 Total</em> (flüssig, deutsch). <strong>Vegan:</strong> <em>Norsan Vegan</em> oder <em>Testa Omega-3</em> (aus Algen). <strong>Ziel:</strong> mindestens 2 g EPA täglich – bei Depression bis 4 g (Studien-Meta-Analyse Mocking 2016).</p>
         </div>
       </div>
       <div class="protocol-card">
@@ -721,6 +746,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>Vitamin D3 + K2</h4>
           <p><span class="badge">5.000–10.000 IU</span> täglich. Für Hormone, Knochen und Immunfunktion.</p>
+          <p class="card-products"><span class="prod-icon">💊</span><strong>Kombi-Produkte:</strong> <em>Thorne Vitamin D/K2 Liquid</em> (flüssig, Tropfen), <em>Sports Research D3+K2</em>, <em>Momentous Vitamin D3</em>. <strong>Deutsch:</strong> <em>Sunday Natural Vitamin D3 K2</em>, <em>Sonnenkraft Forte</em>. <strong>Wichtig:</strong> mit fettiger Mahlzeit einnehmen (fettlöslich). <strong>Blutspiegel prüfen:</strong> 25(OH)D-Test beim Hausarzt oder <em>Cerascreen Bluttest</em> – Zielwert 40–60 ng/ml. Ohne Test maximal 4.000 IU.</p>
         </div>
       </div>
       <div class="protocol-card">
@@ -728,6 +754,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>Creatin-Monohydrat</h4>
           <p><span class="badge">5 g</span> täglich. Nicht nur Muskeln – verbessert nachweislich Gehirn-Energiesystem und Gedächtnis.</p>
+          <p class="card-products"><span class="prod-icon">💊</span><strong>Wichtig:</strong> nur Monohydrat, idealerweise mit "Creapure"-Siegel (deutsche Qualität, reine Form). <strong>Produkte:</strong> <em>Momentous Creatine</em>, <em>Thorne Creatine</em>, <em>Bulk Powders Creapure</em> (günstig), <em>ESN Ultrapure Creatine</em>, <em>Myprotein Creapure</em>. <strong>Dosierung Gehirn:</strong> 5 g, für größere Menschen (&gt;90 kg) bis 10 g. <strong>Einnahme:</strong> egal wann, egal womit – einfach ins Wasser oder den Kaffee.</p>
         </div>
       </div>
       <div class="protocol-card">
@@ -735,6 +762,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>NMN (Langlebigkeit)</h4>
           <p><span class="badge">500 mg – 2 g</span> sublingual am Morgen. NAD⁺-Vorläufer für Zellreparatur und mitochondriale Energie.</p>
+          <p class="card-products"><span class="prod-icon">⚠️</span><strong>Rechtslage:</strong> NMN ist seit 2022 in den USA als Supplement reklassifiziert (FDA), in der EU als neuartiges Lebensmittel noch nicht zugelassen – Bezug nur über Graumarkt. <strong>Legale Alternative:</strong> <em>NR (Nicotinamid-Ribosid)</em> – <em>Tru Niagen</em> (Originalhersteller), <em>Thorne ResveraCel</em>, <em>Life Extension NAD+ Cell Regenerator</em>. <strong>Dosierung NR:</strong> 300–600 mg. <strong>Natürlich:</strong> Edamame, Brokkoli, rohes Rindfleisch (enthält Vorläufer, wenig quantifizierbar).</p>
         </div>
       </div>
     </div>
@@ -745,6 +773,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>Magnesium-L-Threonat</h4>
           <p><span class="badge">145–400 mg</span> vor dem Bett. Passiert die Blut-Hirn-Schranke.</p>
+          <p class="card-products"><span class="prod-icon">💊</span><strong>Originalpatent:</strong> <em>Magtein</em> – in <em>Momentous Magnesium L-Threonate</em>, <em>Double Wood Magtein</em>, <em>Life Extension Neuro-Mag</em>. <strong>Günstigere Alternative mit ähnlicher Schlafwirkung:</strong> <em>Magnesium-Bisglycinat</em> (Now Foods, Sunday Natural) – 200–400 mg. <strong>Meiden:</strong> Magnesiumoxid – schlecht bioverfügbar. <strong>Einnahme:</strong> 30–60 Min vor dem Schlaf, nicht mit Koffein.</p>
         </div>
       </div>
       <div class="protocol-card">
@@ -752,6 +781,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>Apigenin</h4>
           <p><span class="badge">50 mg</span> ca. <span class="badge">30–60 Min</span> vor dem Schlaf.</p>
+          <p class="card-products"><span class="prod-icon">🌼</span><strong>Produkte:</strong> <em>Momentous Apigenin</em>, <em>Double Wood Apigenin</em>, <em>Swanson Apigenin</em> – je 50 mg Kapseln. <strong>Natürliche Quelle:</strong> 2–3 Tassen starker Kamillentee (<em>Yogi Tea Kamille</em>, <em>Bio-Sidroga</em>) – aber ca. 5× niedrigere Dosis. <strong>Nicht kombinieren mit:</strong> Blutverdünnern (Apigenin hat mildere blutverdünnende Wirkung). <strong>Zurückhaltung:</strong> bei Frauen mit Östrogen-sensiblen Erkrankungen Arzt konsultieren.</p>
         </div>
       </div>
       <div class="protocol-card">
@@ -759,6 +789,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>L-Theanin</h4>
           <p><span class="badge">100–400 mg</span> abends. ⚠️ Meiden bei intensiven Träumen/Schlafwandeln.</p>
+          <p class="card-products"><span class="prod-icon">🍵</span><strong>Beste Qualität:</strong> Produkte mit <em>Suntheanine</em>-Siegel (patentiert, reines L-Isomer) – <em>Momentous Suntheanine</em>, <em>Now Foods L-Theanine</em>, <em>Jarrow Formulas Theanine</em>. <strong>Natürliche Quelle:</strong> Matcha-Tee (<em>Ippodo</em>, <em>Jade Leaf</em>) – aber nur ca. 20–30 mg pro Tasse. <strong>Tagsüber:</strong> 100–200 mg mit Koffein (ruhigere Wachheit). <strong>Abends:</strong> 200–400 mg, 30 Min vor dem Schlaf.</p>
         </div>
       </div>
       <div class="protocol-card">
@@ -766,6 +797,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>Fokus-Stack</h4>
           <p><span class="badge">300 mg</span> Alpha-GPC (4×/Woche) + <span class="badge">500 mg</span> L-Tyrosin (gelegentlich vor Stressphasen).</p>
+          <p class="card-products"><span class="prod-icon">⚡</span><strong>Alpha-GPC:</strong> <em>Momentous Alpha-GPC</em>, <em>Double Wood Alpha-GPC</em>, <em>Nootropics Depot</em> – 300 mg Kapseln. <strong>L-Tyrosin:</strong> <em>Now Foods L-Tyrosine 500 mg</em>, <em>Thorne L-Tyrosine</em>, <em>Double Wood N-Acetyl L-Tyrosine</em> (NALT, besser bioverfügbar). <strong>Wichtig (Huberman-Warnung):</strong> Alpha-GPC nicht täglich – Studien zeigen bei langjährigem Konsum erhöhtes Schlaganfallrisiko. Max. 2–4× pro Woche vor wichtigen Terminen.</p>
         </div>
       </div>
       <div class="warning-card">
@@ -798,6 +830,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>Retina-Schutz (Morgendliches Rotlicht)</h4>
           <p><span class="badge">2–5 Min</span> rotes Licht bei <span class="badge">670 nm</span> aus ca. <span class="badge">1 m</span> Entfernung. Stärkt die Mitochondrien der Augen, verbessert Sehkraft im Alter.</p>
+          <p class="card-products"><span class="prod-icon">🔴</span><strong>Huberman-Favorit (aus Podcast):</strong> <em>Joovv Go 2.0</em> (tragbar, ca. 300 €). <strong>Günstigere Alternativen:</strong> <em>Mito Red Light MitoMIN</em>, <em>BonCharge Mini</em>, <em>Hooga HG200</em>. <strong>Klein & günstig:</strong> <em>Rotlicht-Stab von Red Therapy Co</em> (ab ca. 80 €). <strong>Wichtig:</strong> auf 660–670 nm achten (nicht nur "rote LED"). <strong>Nicht:</strong> direkt in die Lampe starren.</p>
         </div>
       </div>
       <div class="protocol-card">
@@ -805,6 +838,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>Stoffwechsel-Hack</h4>
           <p>Rotlichtbestrahlung des Rückens nach einer Mahlzeit → Blutzucker sinkt um über <span class="badge">&gt;20%</span>. Steigert ATP-Produktion in den Mitochondrien.</p>
+          <p class="card-products"><span class="prod-icon">🔥</span><strong>Größere Panels nötig:</strong> <em>Joovv Solo 3.0</em> (ab 700 €), <em>BonCharge Ultra</em>, <em>Mito Red Light MitoPRO 1500</em>. <strong>Budget:</strong> <em>Hooga HG500</em> (ca. 300 €) oder <em>Rotlicht 300</em> (deutsch). <strong>Anwendung:</strong> 10–15 Min freiem Rücken nach dem Mittagessen, 20–30 cm Abstand, Wellenlängen 660 nm + 850 nm (Nahinfrarot) kombinieren.</p>
         </div>
       </div>
       <div class="protocol-card">
@@ -812,6 +846,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>Indoor-Anpassung</h4>
           <p>In viel genutzten Räumen LEDs durch Halogen-/Glühlampen ersetzen. Modernes LED-Licht hat ein "zackiges" Spektrum – viel Blau, kaum Rot/Infrarot.</p>
+          <p class="card-products"><span class="prod-icon">💡</span><strong>Halogen:</strong> <em>Osram Halolux Ceram</em>, <em>Philips EcoClassic</em> (in DE noch eingeschränkt erhältlich, EU-Verbot 2018 aufgeweicht 2023 für Stiftsockel). <strong>Moderne Alternative – "Full-Spectrum" LED:</strong> <em>Chromalux</em>, <em>BonCharge Incandescent-Style</em>, <em>WayPlus Retro LED</em>. <strong>Arbeitsplatz:</strong> <em>BenQ ScreenBar Halo</em> (warme Variante). <strong>Merke:</strong> Farbtemperatur &lt; 3000 K, CRI &gt; 90.</p>
         </div>
       </div>
       <div class="protocol-card">
@@ -819,6 +854,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>Abendliche Lichtdisziplin</h4>
           <p>Ab <span class="badge">22 Uhr</span> harte LEDs meiden. Stattdessen: gedimmte Halogenlampen, Kerzenlicht oder niedrig positionierte warme Quellen.</p>
+          <p class="card-products"><span class="prod-icon">🕯️</span><strong>Smarte Lampen:</strong> <em>Philips Hue</em> (warme Szenen, automatischer Abend-Dimm), <em>IKEA Tradfri</em> (günstig). <strong>Bildschirme:</strong> <em>f.lux</em> (Mac/PC, kostenlos), <em>Night Shift</em> (iOS/macOS), <em>iris</em> (extremere Filterung). <strong>Blaulicht-Brillen:</strong> <em>BonCharge Sleep+</em> (rot getönt, Huberman trägt sie), <em>Ra Optics</em>. <strong>Bio-Hack:</strong> Echte Kerzen oder Salzkristall-Lampe – Infrarot-Anteil hilft beim Einschlafen.</p>
         </div>
       </div>
     </div>
@@ -873,6 +909,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>Awe Walk</h4>
           <p>Einmal wöchentlich <span class="badge">15–30 Min</span> spazieren. Fokus bewusst von Details (Blatt) zur Weite (Horizont, Baumkronen) verschieben. Aktiviert den Parasympathikus.</p>
+          <p class="card-products"><span class="prod-icon">🌲</span><strong>Studie:</strong> Sturm et al. 2020 (UC San Francisco) – 8 Wochen Awe Walks, messbar reduzierter Stress bei Senioren. <strong>Ideale Orte:</strong> Wald, Berge, Meer, Kirchen-/Kathedralen-Innenräume, Sternenhimmel. <strong>In der Stadt:</strong> Dom, Botanischer Garten, höchstes Gebäude (Aussicht). <strong>App-Inspiration:</strong> <em>AllTrails</em>, <em>Komoot</em> – nach "Aussichtspunkt" filtern. <strong>Kein Handy mitnehmen.</strong></p>
         </div>
       </div>
       <div class="protocol-card">
@@ -880,6 +917,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>Collective Effervescence</h4>
           <p>Teilnahme an synchronisierenden Gruppenaktivitäten: Konzerte, Sport, Singen, gemeinsame Mahlzeiten ohne Technik. Führt zu neuronaler Synchronisation.</p>
+          <p class="card-products"><span class="prod-icon">🎶</span><strong>Beispiele:</strong> Chorsingen (viele Kirchengemeinden, Volkshochschulen), Gospel-Chor, Orchester, Stadionbesuch (Fußball/Handball live), Tanzkurs, Yoga-Kurs vor Ort statt Online. <strong>Für Musiker:</strong> Blechbläser-Ensemble, Big Band – siehe z.B. <em>Blech'N'Takt</em> (Band-Projekt). <strong>Regel:</strong> live &gt; gestreamt – der physische Synchronisations-Effekt funktioniert nicht durch Kopfhörer.</p>
         </div>
       </div>
       <div class="protocol-card">
@@ -887,6 +925,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>Social Grooming</h4>
           <p>Spielerisches Necken (Playful Teasing) + Augenkontakt → Oxytocinfreisetzung. Verlegenheit zeigen = Signal für Gruppen-Commitment und Vertrauen.</p>
+          <p class="card-products"><span class="prod-icon">👀</span><strong>Kein Produkt – aber konkrete Handlungen:</strong> Mitmenschen beim Gespräch tatsächlich anschauen (Handy weglegen), warmherziges Aufziehen unter Freunden kultivieren, eigene Peinlichkeiten offen benennen statt verstecken. <strong>Huberman-Empfehlung:</strong> mindestens eine Mahlzeit pro Tag gemeinsam (Familie/Freunde) ohne Bildschirme. <strong>Körperkontakt:</strong> Umarmungen ≥ 20 Sek setzen Oxytocin frei (Studie Light 2005).</p>
         </div>
       </div>
       <div class="protocol-card">
@@ -894,6 +933,7 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
         <div class="card-body">
           <h4>Analoges Bonding</h4>
           <p>Lagerfeuer oder gemeinsames Kochen. Infrarotlicht + Storytelling aktivieren das parasympathische Nervensystem auf natürliche Weise.</p>
+          <p class="card-products"><span class="prod-icon">🔥</span><strong>Setup-Ideen:</strong> Feuerschale (<em>Petromax</em>, <em>Höfats Cube</em>, <em>Feuerkorb aus Baumarkt</em> ab 30 €), Outdoor-Pizzaofen (<em>Ooni Koda</em>), Gasgrill ersatzweise mit echten Flammen. <strong>Indoor:</strong> offener Kamin, Kerzen-Abendessen bei gedimmtem Licht. <strong>Regel:</strong> keine Handys am Tisch/Feuer – nur Augen, Stimme, Essen. <strong>Frequenz:</strong> Huberman empfiehlt wöchentlich.</p>
         </div>
       </div>
     </div>
