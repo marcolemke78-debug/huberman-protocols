@@ -317,6 +317,90 @@ h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+
+/* ── Mobile (≤ 768px) ── */
+@media (max-width: 768px) {
+  /* Slides: pro Slide scrollen statt Body */
+  .slide {
+    padding: 56px 16px 88px 16px;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Title-Slide */
+  .title-content h1 { font-size: 2.3rem; line-height: 1.15; }
+  .title-content .subtitle { font-size: 0.95rem; margin-bottom: 24px; }
+  .title-content .author { font-size: 0.7rem; letter-spacing: 2px; }
+  .title-tags { gap: 8px; margin-top: 24px; }
+  .title-tag { font-size: 0.7rem; padding: 4px 10px; }
+  .title-orb { filter: blur(40px); }
+  .title-orb:nth-child(1) { width: 180px; height: 180px; }
+  .title-orb:nth-child(2) { width: 160px; height: 160px; }
+  .title-orb:nth-child(3) { width: 140px; height: 140px; }
+
+  /* Section-Intro */
+  .section-number { font-size: 5rem; }
+  .section-icon { font-size: 2.2rem; }
+  .section-intro-content h2 { font-size: 1.8rem; margin-bottom: 16px; }
+  .section-quote { font-size: 0.9rem; line-height: 1.6; padding-left: 14px; }
+
+  /* Content-Slides: zwei Spalten → eine Spalte */
+  .content-slide {
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+  .content-left h3 { font-size: 1.15rem; margin-bottom: 14px; }
+  .protocol-card { padding: 12px 14px; gap: 10px; margin-bottom: 10px; }
+  .card-num { width: 28px; height: 28px; font-size: 0.78rem; }
+  .card-body h4 { font-size: 0.88rem; }
+  .card-body p { font-size: 0.78rem; line-height: 1.45; }
+  .warning-card, .synergy-card { padding: 12px 14px; margin-bottom: 10px; }
+  .warning-card h4, .synergy-card h4 { font-size: 0.85rem; }
+  .warning-card p, .synergy-card p { font-size: 0.78rem; }
+  .accordion-header { font-size: 0.85rem; padding: 12px 14px; }
+  .accordion-body-inner { font-size: 0.78rem; }
+  .content-right h3 { font-size: 1.1rem !important; }
+
+  /* Dashboard: 3 Spalten → 1 Spalte */
+  .dashboard-slide h2 { font-size: 1.4rem; margin-bottom: 18px; }
+  .dashboard-grid { grid-template-columns: 1fr; gap: 12px; }
+  .dashboard-card { padding: 18px; }
+  .dashboard-card h4 { font-size: 0.95rem; }
+
+  /* Navigation – alles kompakter, Kollisionen vermeiden */
+  .nav-arrow {
+    width: 40px; height: 40px; font-size: 18px;
+    top: auto; bottom: 14px; transform: none;
+  }
+  #arrow-left { left: 12px; }
+  #arrow-right { right: 12px; }
+
+  #nav-dots {
+    right: 6px; gap: 4px;
+  }
+  .nav-dot { width: 7px; height: 7px; border-width: 1.5px; }
+  .nav-section-label { display: none; }
+
+  #slide-counter {
+    top: 12px; bottom: auto; right: 14px;
+    font-size: 11px;
+  }
+
+  #overview-btn {
+    top: 12px; bottom: auto; left: 14px;
+    width: 30px; height: 30px; font-size: 14px;
+  }
+
+  /* Übersichtsmodus */
+  #slides-container.overview { padding: 20px 12px; gap: 10px; }
+  #slides-container.overview .slide {
+    width: calc(50% - 6px); height: 140px;
+    padding: 8px;
+  }
+}
 </style>
 </head>
 <body>
@@ -1051,12 +1135,19 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'End') { e.preventDefault(); goToSlide(totalSlides - 1); }
 });
 
-// Touch/Swipe support
-let touchStartX = 0;
-document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+// Touch/Swipe support – nur bei überwiegend horizontaler Geste umschalten,
+// damit vertikales Scrollen innerhalb einer Slide erhalten bleibt.
+let touchStartX = 0, touchStartY = 0;
+document.addEventListener('touchstart', (e) => {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+});
 document.addEventListener('touchend', (e) => {
-  const diff = touchStartX - e.changedTouches[0].clientX;
-  if (Math.abs(diff) > 50) { diff > 0 ? nextSlide() : prevSlide(); }
+  const diffX = touchStartX - e.changedTouches[0].clientX;
+  const diffY = touchStartY - e.changedTouches[0].clientY;
+  if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+    diffX > 0 ? nextSlide() : prevSlide();
+  }
 });
 
 // Initial state
